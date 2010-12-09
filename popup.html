@@ -5,7 +5,7 @@
   <h1>Test popup</h1>
   <p>JS should get injected in 1 second, then CSS in 2 seconds.</p>
   <script>    
-    function include( path ) { // include({js: ['/js/foo.js','/js/bar.js'], css: '/css/baz.css' })
+    function include( files ) { // include({js: ['/js/foo.js','/js/bar.js'], css: '/css/baz.css' })
       var oex = window.location.protocol + '//' + window.location.host + '/',
           head = document.head,
           
@@ -23,7 +23,7 @@
       },
       
       isArray = function( type ) {
-        return Object.prototype.toString.call( path[ type ] ) == "[object Array]";
+        return Object.prototype.toString.call( files[ type ] ) == "[object Array]";
       }, 
       
       includeFile = function( file, type ) {
@@ -31,16 +31,16 @@
         if ( type == 'css' ) includeCSS( file );
       };
       
-      for ( var type in path ) {
-        if ( path.hasOwnProperty( type ) ) {
+      for ( var type in files ) {
+        if ( files.hasOwnProperty( type ) ) {
           if ( isArray( type ) ) {
             for ( var i = 0, l = type.length; i < l; i++ ) {
               (function(i){
-                includeFile( path[ type ][ i ], type );
+                includeFile( files[ type ][ i ], type );
               })(i);
             }
-          } else if ( typeof path[ type ] == 'string') {
-            includeFile( path[ type ], type );
+          } else if ( typeof files[ type ] == 'string') {
+            includeFile( files[ type ], type );
           }
         }
       }
