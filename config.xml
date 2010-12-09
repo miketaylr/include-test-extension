@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets">
+  <name>include() test extension</name>
+  <description>Extension to test loading resources internal to the widget package</description>
+  <author email="miket@opera.com" href="http://www.miketaylr.com">Mike Taylor</author>
+</widget>

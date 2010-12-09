@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Hello World!</title>
+  <meta charset="UTF-8">
+  <script>
+    window.addEventListener( 'load', function(){
+      var button,
+          toolbarUIItemProperties = {
+            disabled: false,
+            title: 'Hello World',
+            popup: {
+              href: 'popup.html',
+              width: 800,
+              height: 400
+            },
+            badge: {
+              display: 'block'
+            }
+          };
+          
+      button = opera.contexts.toolbar.createItem(toolbarUIItemProperties);
+      button.addEventListener('click', function(){
+        button.badge.textContent = "!!!";
+      }, false );
+      opera.contexts.toolbar.addItem(button);
+    }, false );
+  </script>
+</head>
+<body>
+
+</body>
+</html>

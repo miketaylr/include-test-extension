@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+  <h1>Test popup</h1>
+  <p>JS should get injected in 1 second, then CSS in 2 seconds.</p>
+  <script>    
+    function include( path ) { // include({js: ['/js/foo.js','/js/bar.js'], css: '/css/baz.css' })
+      var oex = window.location.protocol + '//' + window.location.host + '/',
+          head = document.head,
+          
+      includeJS = function( path ) {
+        var script = document.createElement('script');
+        script.src = oex + path;
+        head.appendChild( script );
+      },
+      
+      includeCSS = function( path ) {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = oex + path;
+        head.appendChild( link );
+      },
+      
+      isArray = function( type ) {
+        return Object.prototype.toString.call( path[ type ] ) == "[object Array]";
+      }, 
+      
+      includeFile = function( file, type ) {
+        if ( type == 'js' ) includeJS( file );
+        if ( type == 'css' ) includeCSS( file );
+      };
+      
+      for ( var type in path ) {
+        if ( path.hasOwnProperty( type ) ) {
+          if ( isArray( type ) ) {
+            for ( var i = 0, l = type.length; i < l; i++ ) {
+              (function(i){
+                includeFile( path[ type ][ i ], type );
+              })(i);
+            }
+          } else if ( typeof path[ type ] == 'string') {
+            includeFile( path[ type ], type );
+          }
+        }
+      }
+    };
+    
+    window.setTimeout(include, 1000, {js: ['js/alert.js', 'js/alert2.js']});
+    window.setTimeout(include, 2000, {css: ['css/test.css', 'css/test2.css']});
+  </script>
+</body>
+</html>
