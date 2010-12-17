@@ -22,10 +22,6 @@
         head.appendChild( link );
       },
       
-      isArray = function( type ) {
-        return Object.prototype.toString.call( files[ type ] ) == "[object Array]";
-      }, 
-      
       includeFile = function( file, type ) {
         if ( type == 'js' ) includeJS( file );
         if ( type == 'css' ) includeCSS( file );
@@ -33,7 +29,7 @@
       
       for ( var type in files ) {
         if ( files.hasOwnProperty( type ) ) {
-          if ( isArray( type ) ) {
+          if ( Array.isArray( type ) ) {
             for ( var i = 0, l = type.length; i < l; i++ ) {
               (function(i){
                 includeFile( files[ type ][ i ], type );
